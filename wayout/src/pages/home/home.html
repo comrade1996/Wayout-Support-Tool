@@ -1,14 +1,44 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
+=
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v3">docs</a> will be your guide.
-  </p>
+  <!-- Default Segment -->
+<ion-segment (ionChange)="segmentChanged($event)">
+  <ion-segment-button value="endpoint">
+    <ion-label>Upload By Endpoint</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="file">
+    <ion-label>Upload By File</ion-label>
+  </ion-segment-button>
+</ion-segment>
+
+  <form *ngIf="activatedForm == 'endpoint'" [formGroup]="formByEndpoint" (ngSubmit)="submitByEndpointForm()">
+    <ion-label>Fetch Data Url</ion-label>
+    <ion-input placeholder="https://www,example.com/posts" type="url" [formControlName]="'url'"></ion-input>
+    <div *ngIf="formByEndpoint.get('url').hasError('required')">
+      Url is a required field
+    </div>
+
+    <ion-label>Entites</ion-label>
+
+    <select placeholder="Select Entity" [formControlName]="'entityId'" required>
+      <option value="" disabled selected>choose entity</option>
+      <option *ngFor="let entity of entites" value="entity.id">{{entity.name}}</option>
+    </select>
+
+    <button ion-button type="submit"  class="myButton" color="primary">Submiit</button>
+
+  </form>
+
+
+  <form *ngIf="activatedForm == 'file'"[formGroup]="formByFile" (ngSubmit)="submitByFileForm()">
+
+    <ion-label>Entites</ion-label>
+    <select  placeholder="Select Entity"[formControlName]="'entityId'" required>
+      <option value="" disabled selected>choose entity</option>
+      <option *ngFor="let entity of entites" value="entity.id">{{entity.name}}</option>
+    </select>
+    <ion-label for="file">Choose File</ion-label>
+    <ion-input placeholder="https://www,example.com/posts" type="file" [formControlName]="'file'" (change)="handleFileInput($event.target.files)"></ion-input>
+    <button ion-button type="submit"  class="myButton" color="primary">Submiit</button>
+  </form>
+
 </ion-content>
