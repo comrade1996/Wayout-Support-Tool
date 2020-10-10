@@ -1,7 +1,7 @@
 =
 <ion-content padding>
   <!-- Default Segment -->
-<ion-segment (ionChange)="segmentChanged($event)">
+<ion-segment (ionChange)="segmentChanged($event)" value="endpoint">
   <ion-segment-button value="endpoint">
     <ion-label>Upload By Endpoint</ion-label>
   </ion-segment-button>
@@ -24,10 +24,11 @@
       <option *ngFor="let entity of entites" value="entity.id">{{entity.name}}</option>
     </select>
 
-    <button ion-button type="submit"  class="myButton" color="primary">Submiit</button>
+    <button ion-button type="submit"  class="myButton" color="primary">Submit</button>
 
   </form>
 
+  <ion-spinner name="dots"></ion-spinner>
 
   <form *ngIf="activatedForm == 'file'"[formGroup]="formByFile" (ngSubmit)="submitByFileForm()">
 
@@ -38,7 +39,7 @@
     </select>
     <ion-label for="file">Choose File</ion-label>
     <ion-input placeholder="https://www,example.com/posts" type="file" [formControlName]="'file'" (change)="handleFileInput($event.target.files)"></ion-input>
-    <button ion-button type="submit"  class="myButton" color="primary">Submiit</button>
+    <button ion-button type="submit"  class="myButton" color="primary">Submit</button>
   </form>
 
 </ion-content>

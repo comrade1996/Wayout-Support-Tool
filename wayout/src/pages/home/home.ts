@@ -1,3 +1,4 @@
+import { LoaderProvider } from './../../providers/loader/loader';
 import { DatahandlerProvider } from './../../providers/datahandler/datahandler';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -33,7 +34,7 @@ export class HomePage {
 
   formByEndpoint: FormGroup;
   formByFile: FormGroup;
-  constructor(private readonly fb: FormBuilder, private dataHandler: DatahandlerProvider) {
+  constructor(private readonly fb: FormBuilder,private loader:LoaderProvider, private dataHandler: DatahandlerProvider) {
     this.formByEndpoint = this.fb.group({
       url: [, [Validators.required, Validators.pattern(this.reg)]],
       entityId:['']
@@ -42,6 +43,8 @@ export class HomePage {
       file: [null, [Validators.required]],
       entityId:['']
     });
+    this.loader.showLoader();
+    this.loader.hideLoader();
   }
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
@@ -62,12 +65,14 @@ uploadFileToActivity() {
 }
 
 submitByEndpointForm() {
+  console.log('post data232');
+
   if (this.formByEndpoint.valid) {
 
     this.uploadFileToActivity();
     console.log(this.formByEndpoint.getRawValue());
 
-        this.dataHandler.postData(this.postUrl, 'data').subscribe((data) => {
+        this.dataHandler.postData(this.postUrl, 1).subscribe((data) => {
           console.log('post data', data);
         })
 

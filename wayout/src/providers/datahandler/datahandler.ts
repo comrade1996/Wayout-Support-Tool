@@ -19,6 +19,8 @@ export class DatahandlerProvider {
    return this.http.get(url);
   }
   postData(url, data):Observable<any>  {
+    console.log(data);
+
    return this.http.post(url, data);
   }
 

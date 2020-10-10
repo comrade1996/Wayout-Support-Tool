@@ -8,6 +8,7 @@ import { MyApp } from './app.component';
 import { DatahandlerProvider } from '../providers/datahandler/datahandler';
 import { HomePage } from '../pages/home/home';
 import { HttpClientModule } from '@angular/common/http';
+import { LoaderProvider } from '../providers/loader/loader';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    DatahandlerProvider
+    DatahandlerProvider,
+    LoaderProvider
   ]
 })
 export class AppModule {}
